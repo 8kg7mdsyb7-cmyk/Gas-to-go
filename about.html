@@ -1,0 +1,455 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gas to Go – About Us</title>
+  <link href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy:#0d1b4b; --navy-mid:#162263; --navy-light:#1e2f85;
+      --yellow:#FFD600; --yellow-light:#FFE566; --yellow-dark:#e6be00;
+      --white:#ffffff; --offwhite:#f5f7ff;
+      --text-dark:#0a1230; --text-mid:#2a3a6e; --text-light:#6b7dbf;
+      --radius:18px; --radius-sm:10px;
+      --shadow:0 8px 40px rgba(13,27,75,0.13);
+      --shadow-lg:0 20px 60px rgba(13,27,75,0.22);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Nunito',sans-serif;background:var(--offwhite);color:var(--text-dark);overflow-x:hidden;}
+ 
+    /* CARTOON STARS */
+    .star-bg {
+      position: absolute;
+      pointer-events: none;
+      z-index: 0;
+      inset: 0;
+      overflow: hidden;
+    }
+    .star-bg svg { position: absolute; }
+ 
+    /* NAV */
+    nav{background:var(--navy);position:sticky;top:0;z-index:100;box-shadow:0 4px 24px rgba(13,27,75,0.3);}
+    .nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:72px;}
+    .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+    .nav-logo-icon{width:44px;height:44px;background:var(--yellow);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;}
+    .nav-logo-text{font-family:'Boogaloo',cursive;font-size:1.6rem;color:var(--white);}
+    .nav-logo-text span{color:var(--yellow);}
+    .nav-links{display:flex;gap:0.25rem;list-style:none;}
+    .nav-links a{text-decoration:none;color:rgba(255,255,255,0.82);font-weight:700;font-size:0.95rem;padding:8px 16px;border-radius:8px;transition:background .2s,color .2s;}
+    .nav-links a:hover,.nav-links a.active{background:var(--yellow);color:var(--navy);}
+ 
+    /* HERO */
+    .page-hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 60%,#2a3fa0 100%);padding:6rem 2rem;text-align:center;position:relative;overflow:hidden;}
+    .page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(255,214,0,0.1) 0%,transparent 55%);}
+    .hero-ring{position:absolute;border-radius:50%;border:50px solid rgba(255,214,0,0.07);}
+    .hero-ring-1{width:500px;height:500px;right:-120px;top:-120px;}
+    .hero-ring-2{width:280px;height:280px;left:-60px;bottom:-60px;}
+    .page-hero-inner{max-width:700px;margin:0 auto;position:relative;z-index:1;}
+    .page-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,214,0,0.15);border:1.5px solid rgba(255,214,0,0.35);color:var(--yellow);padding:6px 18px;border-radius:100px;font-size:0.82rem;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:1.5rem;animation:fadeUp .6s ease both;}
+    .page-hero h1{font-family:'Boogaloo',cursive;font-size:clamp(2.8rem,5vw,4.5rem);color:var(--white);line-height:1.1;margin-bottom:1.2rem;animation:fadeUp .7s ease .1s both;}
+    .page-hero h1 span{color:var(--yellow);}
+    .page-hero p{color:rgba(255,255,255,0.75);font-size:1.1rem;line-height:1.7;font-weight:600;animation:fadeUp .7s ease .2s both;}
+ 
+    /* SECTIONS */
+    section{padding:5.5rem 2rem;}
+    .section-inner{max-width:1200px;margin:0 auto;}
+    .section-tag{font-size:0.8rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--navy-light);margin-bottom:.75rem;display:flex;align-items:center;gap:8px;}
+    .section-tag::before{content:'';display:block;width:24px;height:3px;background:var(--yellow);border-radius:2px;}
+    .section-title{font-family:'Boogaloo',cursive;font-size:clamp(2rem,3.5vw,2.9rem);color:var(--navy);line-height:1.15;margin-bottom:1rem;}
+    .section-sub{font-size:1.05rem;color:var(--text-mid);line-height:1.7;font-weight:600;}
+ 
+    /* STORY */
+    .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+    .story-visual{position:relative;}
+    .story-img-card{border-radius:28px;overflow:hidden;box-shadow:var(--shadow-lg);}
+    .story-badge{position:absolute;bottom:-20px;right:-20px;background:var(--yellow);border-radius:16px;padding:1rem 1.4rem;box-shadow:var(--shadow);text-align:center;}
+    .story-badge .num{font-family:'Boogaloo',cursive;font-size:2.2rem;color:var(--navy);line-height:1;}
+    .story-badge .lbl{font-size:.75rem;font-weight:800;color:var(--navy);opacity:.7;text-transform:uppercase;letter-spacing:.5px;}
+    .story-text p{font-size:1.05rem;color:var(--text-mid);line-height:1.8;font-weight:600;margin-bottom:1.2rem;}
+    .story-text p:last-child{margin-bottom:0;}
+ 
+    /* VALUES */
+    .values-section{background:var(--navy);position:relative;overflow:hidden;}
+    .values-section::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 90% 10%,rgba(255,214,0,.08) 0%,transparent 50%);}
+    .values-section .section-tag{color:rgba(255,214,0,.7);}
+    .values-section .section-tag::before{background:var(--yellow);}
+    .values-section .section-title{color:var(--white);}
+    .values-section .section-sub{color:rgba(255,255,255,.65);}
+    .values-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem;position:relative;z-index:1;}
+    .value-card{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:2rem 1.5rem;text-align:center;transition:background .25s,transform .25s;}
+    .value-card:hover{background:rgba(255,255,255,.13);transform:translateY(-6px);}
+    .value-icon{font-size:2.8rem;margin-bottom:1rem;display:block;}
+    .value-card h3{font-family:'Boogaloo',cursive;font-size:1.3rem;color:var(--yellow);margin-bottom:.6rem;}
+    .value-card p{font-size:.9rem;color:rgba(255,255,255,.65);line-height:1.65;}
+ 
+    /* STATS BAR */
+    .stats-bar{background:var(--yellow);padding:3.5rem 2rem;position:relative;overflow:hidden;}
+    .stats-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center;position:relative;z-index:1;}
+    .stat-item .num{font-family:'Boogaloo',cursive;font-size:3.2rem;color:var(--navy);line-height:1;}
+    .stat-item .lbl{font-size:.9rem;font-weight:800;color:var(--navy);opacity:.7;text-transform:uppercase;letter-spacing:.8px;margin-top:4px;}
+ 
+    /* TIMELINE */
+    .timeline-section{background:var(--white);position:relative;overflow:hidden;}
+    .timeline{margin-top:3rem;position:relative;padding-left:2.5rem;}
+    .timeline::before{content:'';position:absolute;left:10px;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--yellow),var(--navy-light));border-radius:2px;}
+    .tl-item{position:relative;margin-bottom:2.5rem;}
+    .tl-dot{position:absolute;left:-2.5rem;top:4px;width:22px;height:22px;background:var(--yellow);border:3px solid var(--navy);border-radius:50%;z-index:1;}
+    .tl-year{font-family:'Boogaloo',cursive;font-size:1rem;color:var(--yellow-dark);letter-spacing:.5px;margin-bottom:4px;}
+    .tl-item h3{font-family:'Boogaloo',cursive;font-size:1.3rem;color:var(--navy);margin-bottom:.4rem;}
+    .tl-item p{font-size:.95rem;color:var(--text-mid);line-height:1.7;font-weight:600;}
+ 
+    /* CTA */
+    .cta-section{background:linear-gradient(135deg,var(--yellow) 0%,var(--yellow-dark) 100%);text-align:center;padding:5rem 2rem;position:relative;overflow:hidden;}
+    .cta-section::before{content:'🤝';position:absolute;font-size:16rem;opacity:.06;left:-2rem;bottom:-2rem;line-height:1;}
+    .cta-section .section-title{color:var(--navy);}
+    .cta-section p{color:var(--navy);opacity:.75;font-size:1.1rem;font-weight:600;margin:1rem auto 2rem;max-width:500px;}
+    .btn-navy{background:var(--navy);color:var(--yellow);padding:16px 40px;border-radius:100px;font-weight:900;font-size:1.05rem;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:transform .2s,box-shadow .2s;box-shadow:0 8px 28px rgba(13,27,75,.25);}
+    .btn-navy:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(13,27,75,.35);}
+ 
+    /* FOOTER */
+    footer{background:var(--navy);color:rgba(255,255,255,0.7);padding:4rem 2rem 2rem;position:relative;overflow:hidden;}
+    .footer-inner{max-width:1200px;margin:0 auto;position:relative;z-index:1;}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,.1);}
+    .footer-brand p{font-size:.9rem;line-height:1.7;margin-top:1rem;max-width:260px;}
+    .footer-col h4{font-family:'Boogaloo',cursive;font-size:1.1rem;color:var(--yellow);margin-bottom:1.25rem;}
+    .footer-col ul{list-style:none;}
+    .footer-col ul li{margin-bottom:.65rem;}
+    .footer-col ul li a{text-decoration:none;color:rgba(255,255,255,.65);font-size:.9rem;font-weight:600;transition:color .2s;}
+    .footer-col ul li a:hover{color:var(--yellow);}
+    .footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:2rem;font-size:.85rem;flex-wrap:wrap;gap:1rem;}
+    .footer-bottom a{color:var(--yellow);text-decoration:none;font-weight:700;}
+ 
+    /* STAR ANIMATIONS */
+    @keyframes twinkle {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+    @keyframes twinkle2 {
+      0%, 100% { opacity: 0.7; transform: scale(0.9) rotate(10deg); }
+      50% { opacity: 0.25; transform: scale(1.1) rotate(-10deg); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+    .star-svg { animation: twinkle 2.4s ease-in-out infinite; }
+    .star-svg.t2 { animation: twinkle2 3.1s ease-in-out infinite; }
+    .star-svg.t3 { animation: twinkle 1.9s ease-in-out 0.6s infinite; }
+    .star-svg.t4 { animation: twinkle2 2.7s ease-in-out 1.1s infinite; }
+    .star-svg.t5 { animation: twinkle 3.5s ease-in-out 0.3s infinite; }
+    .star-svg.t6 { animation: twinkle2 2.2s ease-in-out 0.9s infinite; }
+    .star-svg.float { animation: float 4s ease-in-out infinite; }
+ 
+    @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+    @media(max-width:900px){.story-grid,.values-grid{grid-template-columns:1fr 1fr;}.team-grid{grid-template-columns:1fr 1fr;}.stats-inner{grid-template-columns:1fr 1fr;}.footer-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:600px){.story-grid,.team-grid{grid-template-columns:1fr;}.values-grid{grid-template-columns:1fr 1fr;}.stats-inner{grid-template-columns:1fr 1fr;}.nav-links{display:none;}.footer-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+ 
+<!-- Reusable cartoon star SVG snippet via JS -->
+<script>
+  function cartoonStar(size, fill, stroke, strokeW) {
+    strokeW = strokeW || 2;
+    var s = size, r = s/2;
+    // 5-point star path centered at (r, r)
+    function starPath(cx, cy, r5, r2) {
+      var pts = [];
+      for (var i = 0; i < 10; i++) {
+        var angle = (Math.PI / 5) * i - Math.PI / 2;
+        var rad = (i % 2 === 0) ? r5 : r2;
+        pts.push((cx + rad * Math.cos(angle)).toFixed(2) + ',' + (cy + rad * Math.sin(angle)).toFixed(2));
+      }
+      return 'M' + pts.join('L') + 'Z';
+    }
+    return '<svg xmlns="http://www.w3.org/2000/svg" width="'+s+'" height="'+s+'" viewBox="0 0 '+s+' '+s+'">'
+      + '<polygon points="' + starPath(r, r, r*0.95, r*0.42).replace(/M|L|Z/g,'').replace(/,/g,' ') + '" '
+      + 'fill="'+fill+'" stroke="'+stroke+'" stroke-width="'+strokeW+'" stroke-linejoin="round"/>'
+      + '<circle cx="'+r+'" cy="'+(r*0.72)+'" r="'+(r*0.13)+'" fill="white" opacity="0.55"/>'
+      + '</svg>';
+  }
+ 
+  // Actually let's just embed the stars as inline SVG polygons via the DOM
+  function makeStar(x, y, size, fill, stroke, opacity, animClass) {
+    var div = document.createElement('div');
+    div.className = 'star-svg ' + (animClass || '');
+    div.style.cssText = 'position:absolute;left:'+x+'px;top:'+y+'px;opacity:'+opacity+';pointer-events:none;';
+    div.innerHTML = buildStarSVG(size, fill, stroke);
+    return div;
+  }
+ 
+  function buildStarSVG(size, fill, stroke) {
+    var s = size, r = s / 2;
+    var pts = [];
+    for (var i = 0; i < 10; i++) {
+      var angle = (Math.PI / 5) * i - Math.PI / 2;
+      var rad = (i % 2 === 0) ? r * 0.95 : r * 0.42;
+      pts.push((r + rad * Math.cos(angle)).toFixed(2) + ',' + (r + rad * Math.sin(angle)).toFixed(2));
+    }
+    var points = pts.join(' ');
+    return '<svg xmlns="http://www.w3.org/2000/svg" width="'+s+'" height="'+s+'" viewBox="0 0 '+s+' '+s+'">'
+      + '<polygon points="'+points+'" fill="'+fill+'" stroke="'+stroke+'" stroke-width="2.2" stroke-linejoin="round"/>'
+      + '<circle cx="'+r+'" cy="'+(r*0.68)+'" r="'+(r*0.14)+'" fill="white" opacity="0.6"/>'
+      + '</svg>';
+  }
+</script>
+ 
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">⛽</div>
+      <span class="nav-logo-text">Gas to <span>Go</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About Us</a></li>
+      <li><a href="whatsinstore.html">What's In Store</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="careers.html">Careers</a></li>
+    </ul>
+  </div>
+</nav>
+ 
+<!-- HERO -->
+<div class="page-hero" id="hero-section">
+  <div class="hero-ring hero-ring-1"></div>
+  <div class="hero-ring hero-ring-2"></div>
+ 
+  <!-- Hero stars (light yellow, white on dark navy bg) -->
+  <div class="star-bg" id="hero-stars"></div>
+ 
+  <div class="page-hero-inner">
+    <div class="page-tag">⛽ Our Story</div>
+    <h1>About <span>Gas to Go</span></h1>
+    <p>A passion project turned community staple. We're not just a gas station, we're your neighbors, your pit crew, your favorite stop along the way, we are actually everywhere.</p>
+  </div>
+</div>
+ 
+<!-- STORY -->
+<section style="position:relative;overflow:hidden;" id="story-section">
+  <div class="star-bg" id="story-stars"></div>
+  <div class="section-inner story-grid">
+    <div class="story-visual">
+      <img src="old gas station.jpg" alt="Old Gas Station" width="1060" height="800" style="width:100%;height:auto;border-radius:28px;display:block;box-shadow:0 20px 60px rgba(13,27,75,0.22);">
+      <div class="story-badge">
+        <div class="num">2024 or something</div>
+        <div class="lbl">Est.</div>
+      </div>
+    </div>
+    <div class="story-text">
+      <div class="section-tag">Where It All Began</div>
+      <h2 class="section-title">Started with a Dream,<br/>Fueled by High Gas Prices</h2>
+      <p>Gas to Go was born from a simple idea: a gas station that actually cares. Gas prices were way too high (and there was a certain final that needed to be completed) so the only solution was to make a gas station that cares.</p>
+      <p>Where the care goes beyond the pump. Where the coffee is always fresh, the food selection is amazing, and every customer can feel at home.</p>
+      <p>We believe a great gas station is about more than fuel. It's about the experience — the friendly wave at the register, the perfect hot dog at 2 AM, the clean restroom you actually want to use. That's the Gas to Go promise.</p>
+    </div>
+  </div>
+</section>
+ 
+<!-- STATS BAR -->
+<div class="stats-bar" id="stats-section">
+  <div class="star-bg" id="stats-stars"></div>
+  <div class="stats-inner">
+    <div class="stat-item"><div class="num">12 or so</div><div class="lbl">Pump Stations</div></div>
+    <div class="stat-item"><div class="num">500+</div><div class="lbl">Products In Store</div></div>
+    <div class="stat-item"><div class="num">24/7</div><div class="lbl">Always Open</div></div>
+    <div class="stat-item"><div class="num">100%</div><div class="lbl">A Gas Station</div></div>
+  </div>
+</div>
+ 
+<!-- VALUES -->
+<section class="values-section" id="values-section">
+  <div class="star-bg" id="values-stars"></div>
+  <div class="section-inner">
+    <div class="section-tag">What We Stand For</div>
+    <h2 class="section-title">Our Core Values</h2>
+    <p class="section-sub">Everything we do comes back to these four beliefs. They guide how we operate every single day.</p>
+    <div class="values-grid">
+      <div class="value-card">
+        <span class="value-icon">❤️</span>
+        <h3>Community First</h3>
+        <p>We're locals serving locals. Every decision we make considers what's best for Burney and the people who call it home.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">✨</span>
+        <h3>Quality Always</h3>
+        <p>From the fuel in our pumps to the food on our shelves; we totally never cut corners. You deserve the best, and that's what we deliver.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">😊</span>
+        <h3>Friendly</h3>
+        <p>A smile costs nothing. If we're not friendly then we're not doing our job.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">🌱</span>
+        <h3>Keep Growing</h3>
+        <p>We're always looking for ways to improve our services. We will listen to you, and if you need anything changed, we'll change it!</p>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- TIMELINE -->
+<section class="timeline-section" id="timeline-section">
+  <div class="star-bg" id="timeline-stars"></div>
+  <div class="section-inner">
+    <div class="section-tag">Our Journey</div>
+    <h2 class="section-title">How We Got Here</h2>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">Early 2024</div><h3>The Idea is Born</h3><p>The idea of Gas to Go was born after fueling up for gas one day and realising it was way too expensive.</p></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">Mid 2024</div><h3>Location Secured</h3><p>After months of searching, and bribing a couple of banks, the perfect spot is found. Renovations begin right away.</p></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">Late 2024</div><h3>Grand Opening!</h3><p>That was fast. Gas to Go opens its doors. All of the country shows up (9 people but who's counting?)</p></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">Early 2025</div><h3>Loyalty Program Launches</h3><p>We introduce the Gas to Go Rewards program — customers earn points on every purchase and redeem them for fuel and snacks.</p></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2026 & Beyond</div><h3>Growing Strong</h3><p>We're expanding our hot food menu, adding EV charging stations because electric cars exist, and looking for passionate people to join our growing team.</p></div>
+    </div>
+  </div>
+</section>
+ 
+<!-- CTA -->
+<section class="cta-section" id="cta-section">
+  <div class="star-bg" id="cta-stars"></div>
+  <div class="section-inner" style="position:relative;z-index:1;">
+    <h2 class="section-title">Want to Be Part of the Story? 🚀</h2>
+    <p>We're always looking for great people to join the Gas to Go family. Please check us out!</p>
+    <a href="careers.html" class="btn-navy">💼 Like please join us..</a>
+  </div>
+</section>
+ 
+<!-- FOOTER -->
+<footer id="footer-section">
+  <div class="star-bg" id="footer-stars"></div>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" style="display:inline-flex;margin-bottom:1rem;">
+          <div class="nav-logo-icon">⛽</div>
+          <span class="nav-logo-text">Gas to <span>Go</span></span>
+        </a>
+        <p>Your favorite neighborhood gas station. Fueling your journey since 2024, one gallon at a time.</p>
+      </div>
+      <div class="footer-col"><h4>Pages</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="whatsinstore.html">What's In Store</a></li><li><a href="contact.html">Contact</a></li><li><a href="careers.html">Careers</a></li></ul></div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="#">Fuel Pumps</a></li><li><a href="#">Car Wash</a></li><li><a href="#">ATM</a></li><li><a href="#">Loyalty Rewards</a></li><li><a href="#">Hot Food</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul><li><a href="#">1234 Main St, Somewhere</a></li><li><a href="#">(530) 555-0192</a></li><li><a href="#">hello@gastogo.com</a></li><li><a href="#">Open 24/7</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Gas to Go. All rights reserved.</span>
+      <span><a href="#">Privacy Policy</a> · <a href="#">Terms</a></span>
+    </div>
+  </div>
+</footer>
+ 
+<script>
+  // Star configs per section: [x%, y%, size, fill, stroke, opacity, animClass]
+  var starConfigs = {
+    'hero-stars': [
+      [8,  12, 28, '#FFD600', '#e6a800', 0.55, 't2 float'],
+      [18, 72, 16, '#FFE566', '#FFD600', 0.4,  't3'],
+      [88, 18, 22, '#FFD600', '#e6a800', 0.5,  't5'],
+      [78, 65, 14, '#fff',    '#FFD600', 0.35, 't4'],
+      [55, 88, 18, '#FFD600', '#e6a800', 0.4,  't6'],
+      [35, 10, 12, '#FFE566', '#FFD600', 0.3,  't3'],
+      [92, 52, 20, '#FFD600', '#e6a800', 0.45, 't2'],
+      [4,  48, 10, '#FFE566', '#FFD600', 0.3,  't5'],
+      [65, 15, 14, '#fff',    '#FFD600', 0.3,  't6'],
+      [45, 60, 10, '#FFD600', '#e6a800', 0.25, 't3'],
+    ],
+    'story-stars': [
+      [3,  20, 22, '#FFD600', '#e6a800', 0.18, 't3 float'],
+      [96, 10, 16, '#FFD600', '#e6a800', 0.15, 't5'],
+      [1,  75, 14, '#1e2f85', '#0d1b4b', 0.12, 't4'],
+      [97, 60, 18, '#FFD600', '#e6a800', 0.13, 't2'],
+      [50, 5,  10, '#1e2f85', '#0d1b4b', 0.1,  't6'],
+      [50, 95, 12, '#FFD600', '#e6a800', 0.12, 't3'],
+    ],
+    'stats-stars': [
+      [5,  30, 20, '#0d1b4b', '#162263', 0.18, 't2 float'],
+      [15, 70, 14, '#0d1b4b', '#162263', 0.14, 't4'],
+      [85, 20, 18, '#0d1b4b', '#162263', 0.16, 't5'],
+      [92, 75, 12, '#0d1b4b', '#162263', 0.12, 't3'],
+      [50, 15, 10, '#0d1b4b', '#162263', 0.1,  't6'],
+      [70, 80, 16, '#0d1b4b', '#162263', 0.14, 't2'],
+    ],
+    'values-stars': [
+      [4,  15, 26, '#FFD600', '#e6a800', 0.2,  't2 float'],
+      [95, 12, 18, '#FFD600', '#e6a800', 0.18, 't5'],
+      [2,  60, 14, '#FFE566', '#FFD600', 0.15, 't4'],
+      [96, 55, 20, '#FFD600', '#e6a800', 0.17, 't3'],
+      [50, 3,  12, '#FFD600', '#e6a800', 0.12, 't6'],
+      [50, 97, 10, '#FFE566', '#FFD600', 0.1,  't5'],
+      [20, 88, 16, '#FFD600', '#e6a800', 0.14, 't2'],
+      [78, 85, 14, '#FFE566', '#FFD600', 0.13, 't4'],
+      [30, 5,  10, '#FFD600', '#e6a800', 0.1,  't3'],
+      [70, 6,  12, '#FFE566', '#FFD600', 0.12, 't6'],
+    ],
+    'timeline-stars': [
+      [92, 8,  20, '#FFD600', '#e6a800', 0.14, 't3 float'],
+      [95, 40, 14, '#1e2f85', '#0d1b4b', 0.1,  't5'],
+      [3,  25, 16, '#FFD600', '#e6a800', 0.12, 't4'],
+      [96, 70, 18, '#FFD600', '#e6a800', 0.13, 't2'],
+      [2,  80, 12, '#1e2f85', '#0d1b4b', 0.09, 't6'],
+      [90, 90, 10, '#FFD600', '#e6a800', 0.1,  't3'],
+    ],
+    'cta-stars': [
+      [5,  20, 24, '#0d1b4b', '#162263', 0.2,  't2 float'],
+      [92, 15, 18, '#0d1b4b', '#162263', 0.17, 't5'],
+      [8,  80, 16, '#0d1b4b', '#162263', 0.15, 't4'],
+      [90, 75, 14, '#0d1b4b', '#162263', 0.14, 't3'],
+      [50, 10, 10, '#0d1b4b', '#162263', 0.1,  't6'],
+      [50, 90, 12, '#0d1b4b', '#162263', 0.11, 't2'],
+      [30, 85, 20, '#0d1b4b', '#162263', 0.13, 't5'],
+      [70, 82, 14, '#0d1b4b', '#162263', 0.12, 't4'],
+    ],
+    'footer-stars': [
+      [5,  15, 22, '#FFD600', '#e6a800', 0.2,  't3 float'],
+      [93, 10, 16, '#FFD600', '#e6a800', 0.18, 't5'],
+      [3,  65, 14, '#FFE566', '#FFD600', 0.14, 't4'],
+      [95, 60, 18, '#FFD600', '#e6a800', 0.16, 't2'],
+      [50, 5,  10, '#FFD600', '#e6a800', 0.1,  't6'],
+      [20, 85, 16, '#FFE566', '#FFD600', 0.13, 't3'],
+      [78, 80, 14, '#FFD600', '#e6a800', 0.12, 't5'],
+    ]
+  };
+ 
+  function buildStarSVG(size, fill, stroke) {
+    var s = size, r = s / 2;
+    var pts = [];
+    for (var i = 0; i < 10; i++) {
+      var angle = (Math.PI / 5) * i - Math.PI / 2;
+      var rad = (i % 2 === 0) ? r * 0.95 : r * 0.42;
+      pts.push((r + rad * Math.cos(angle)).toFixed(2) + ',' + (r + rad * Math.sin(angle)).toFixed(2));
+    }
+    return '<svg xmlns="http://www.w3.org/2000/svg" width="'+s+'" height="'+s+'" viewBox="0 0 '+s+' '+s+'">'
+      + '<polygon points="'+pts.join(' ')+'" fill="'+fill+'" stroke="'+stroke+'" stroke-width="2" stroke-linejoin="round"/>'
+      + '<circle cx="'+r+'" cy="'+(r*0.66).toFixed(1)+'" r="'+(r*0.15).toFixed(1)+'" fill="white" opacity="0.55"/>'
+      + '</svg>';
+  }
+ 
+  window.addEventListener('DOMContentLoaded', function() {
+    Object.keys(starConfigs).forEach(function(id) {
+      var container = document.getElementById(id);
+      if (!container) return;
+      var parent = container.parentElement;
+      var w = parent.offsetWidth || 1200;
+      var h = parent.offsetHeight || 400;
+ 
+      starConfigs[id].forEach(function(cfg) {
+        var xPct = cfg[0], yPct = cfg[1], size = cfg[2];
+        var fill = cfg[3], stroke = cfg[4], opacity = cfg[5], animClass = cfg[6];
+        var px = Math.round(xPct / 100 * w) - size / 2;
+        var py = Math.round(yPct / 100 * h) - size / 2;
+ 
+        var div = document.createElement('div');
+        div.className = 'star-svg ' + animClass;
+        div.style.cssText = 'position:absolute;left:'+px+'px;top:'+py+'px;opacity:'+opacity+';pointer-events:none;';
+        div.innerHTML = buildStarSVG(size, fill, stroke);
+        container.appendChild(div);
+      });
+    });
+  });
+</script>
+ 
+</body>
+</html>

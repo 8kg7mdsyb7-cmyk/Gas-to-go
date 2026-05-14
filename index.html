@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gas to Go – Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy: #0d1b4b;
+      --navy-mid: #162263;
+      --navy-light: #1e2f85;
+      --yellow: #FFD600;
+      --yellow-light: #FFE566;
+      --yellow-dark: #e6be00;
+      --white: #ffffff;
+      --offwhite: #f5f7ff;
+      --text-dark: #0a1230;
+      --text-mid: #2a3a6e;
+      --text-light: #6b7dbf;
+      --radius: 18px;
+      --radius-sm: 10px;
+      --shadow: 0 8px 40px rgba(13,27,75,0.13);
+      --shadow-lg: 0 20px 60px rgba(13,27,75,0.22);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--offwhite);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ── CARTOON STARS (matching careers page) ── */
+    .star-bg { position: absolute; pointer-events: none; z-index: 0; inset: 0; overflow: hidden; }
+    @keyframes twinkle    { 0%,100%{opacity:1;transform:scale(1);}         50%{opacity:0.4;transform:scale(0.85);} }
+    @keyframes twinkle2   { 0%,100%{opacity:0.7;transform:scale(0.9) rotate(10deg);} 50%{opacity:0.25;transform:scale(1.1) rotate(-10deg);} }
+    @keyframes float      { 0%,100%{transform:translateY(0px);}            50%{transform:translateY(-8px);} }
+    .star-svg          { animation: twinkle  2.4s ease-in-out infinite; }
+    .star-svg.t2       { animation: twinkle2 3.1s ease-in-out infinite; }
+    .star-svg.t3       { animation: twinkle  1.9s ease-in-out 0.6s infinite; }
+    .star-svg.t4       { animation: twinkle2 2.7s ease-in-out 1.1s infinite; }
+    .star-svg.t5       { animation: twinkle  3.5s ease-in-out 0.3s infinite; }
+    .star-svg.t6       { animation: twinkle2 2.2s ease-in-out 0.9s infinite; }
+    .star-svg.float    { animation: float    4s   ease-in-out infinite; }
+
+    /* ── NAVBAR ── */
+    nav {
+      background: var(--navy);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 24px rgba(13,27,75,0.3);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 72px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo-icon { width: 44px; height: 44px; background: var(--yellow); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+    .nav-logo-text { font-family: 'Boogaloo', cursive; font-size: 1.6rem; color: var(--white); letter-spacing: 0.5px; }
+    .nav-logo-text span { color: var(--yellow); }
+    .nav-links { display: flex; gap: 0.25rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: rgba(255,255,255,0.82); font-weight: 700; font-size: 0.95rem; padding: 8px 16px; border-radius: 8px; transition: background 0.2s, color 0.2s; letter-spacing: 0.3px; }
+    .nav-links a:hover, .nav-links a.active { background: var(--yellow); color: var(--navy); }
+
+    /* ── HERO ── */
+    .hero {
+      /* ═══════════════════════════════════════════════════════
+         HERO BACKGROUND IMAGE
+         Replace the url() below with your image filename.
+         Image should be 1200 × 600 px (or larger for retina).
+         The overlay keeps text readable over any photo.
+
+         Example: background-image: url('hero-banner.jpg');
+         ═══════════════════════════════════════════════════════ */
+      background-image:
+        linear-gradient(135deg, rgba(13,27,75,0.88) 0%, rgba(30,47,133,0.80) 60%, rgba(42,63,160,0.78) 100%),
+        url('YOUR_IMAGE_HERE.jpg');   /* ← swap this filename */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      /* fallback solid gradient when no image is set */
+      background-color: var(--navy);
+
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 4rem 2rem;
+    }
+
+    /* image placeholder box (visible until you add a real image) */
+    .hero-img-hint {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-img-hint-box {
+      border: 2.5px dashed rgba(255,214,0,0.30);
+      border-radius: 20px;
+      width: 1200px;
+      max-width: 95%;
+      height: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .hero-img-hint-box span {
+      font-family: 'Boogaloo', cursive;
+      font-size: 1.1rem;
+      color: rgba(255,214,0,0.45);
+      letter-spacing: 1px;
+    }
+    .hero-img-hint-box small {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.25);
+      font-weight: 700;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(255,214,0,0.12) 0%, transparent 50%),
+        radial-gradient(circle at 10% 90%, rgba(255,214,0,0.08) 0%, transparent 40%);
+      z-index: 1;
+    }
+    .hero-circle-1 { position: absolute; width: 520px; height: 520px; border-radius: 50%; border: 60px solid rgba(255,214,0,0.07); right: -80px; top: -80px; z-index: 1; }
+    .hero-circle-2 { position: absolute; width: 300px; height: 300px; border-radius: 50%; border: 40px solid rgba(255,214,0,0.09); right: 160px; top: 160px; z-index: 1; }
+    .hero-dots { position: absolute; bottom: 60px; left: 40px; display: grid; grid-template-columns: repeat(6,1fr); gap: 12px; opacity: 0.18; z-index: 1; }
+    .hero-dots span { display: block; width: 8px; height: 8px; border-radius: 50%; background: var(--yellow); }
+
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .hero-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,214,0,0.15); border: 1.5px solid rgba(255,214,0,0.35); color: var(--yellow); padding: 6px 16px; border-radius: 100px; font-size: 0.85rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 1.5rem; animation: fadeUp 0.6s ease both; }
+    .hero-title { font-family: 'Boogaloo', cursive; font-size: clamp(3rem,5.5vw,5.2rem); color: var(--white); line-height: 1.1; margin-bottom: 1.5rem; animation: fadeUp 0.7s ease 0.1s both; }
+    .hero-title .accent { color: var(--yellow); }
+    .hero-sub { font-size: 1.15rem; color: rgba(255,255,255,0.75); line-height: 1.7; max-width: 480px; margin-bottom: 2.5rem; font-weight: 600; animation: fadeUp 0.7s ease 0.2s both; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.7s ease 0.3s both; }
+    .btn-primary { background: var(--yellow); color: var(--navy); padding: 14px 32px; border-radius: 100px; font-weight: 900; font-size: 1rem; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: transform 0.2s, box-shadow 0.2s, background 0.2s; box-shadow: 0 6px 24px rgba(255,214,0,0.35); }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(255,214,0,0.45); background: var(--yellow-light); }
+    .btn-outline { border: 2px solid rgba(255,255,255,0.4); color: var(--white); padding: 14px 32px; border-radius: 100px; font-weight: 800; font-size: 1rem; text-decoration: none; transition: border-color 0.2s, background 0.2s; }
+    .btn-outline:hover { border-color: var(--yellow); background: rgba(255,214,0,0.1); }
+
+    .hero-visual { animation: fadeUp 0.8s ease 0.25s both; }
+    .hero-card { background: rgba(255,255,255,0.07); border: 1.5px solid rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 28px; padding: 2.5rem; display: flex; flex-direction: column; gap: 1.2rem; }
+    .hero-pump-emoji { font-size: 5rem; text-align: center; filter: drop-shadow(0 8px 24px rgba(255,214,0,0.4)); }
+    .hero-stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .hero-stat { background: rgba(255,255,255,0.1); border-radius: 16px; padding: 1.2rem; text-align: center; }
+    .hero-stat .val { font-family: 'Boogaloo', cursive; font-size: 2rem; color: var(--yellow); line-height: 1; }
+    .hero-stat .lbl { font-size: 0.78rem; color: rgba(255,255,255,0.65); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-top: 4px; }
+    .hero-price-badge { background: var(--yellow); border-radius: 16px; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+    .hero-price-badge .label { font-weight: 800; font-size: 0.9rem; color: var(--navy); }
+    .hero-price-badge .price { font-family: 'Boogaloo', cursive; font-size: 1.8rem; color: var(--navy); }
+
+    /* ── MARQUEE STRIP ── */
+    .marquee-strip { background: var(--yellow); padding: 0.75rem 0; overflow: hidden; white-space: nowrap; }
+    .marquee-inner { display: inline-flex; animation: marquee 20s linear infinite; gap: 0; }
+    .marquee-item { display: inline-flex; align-items: center; gap: 1rem; padding: 0 2rem; font-family: 'Boogaloo', cursive; font-size: 1.1rem; color: var(--navy); letter-spacing: 0.5px; }
+    .marquee-item .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--navy); opacity: 0.4; }
+
+    /* ── SECTION HELPERS ── */
+    section { padding: 6rem 2rem; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-tag { font-size: 0.8rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--navy-light); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px; }
+    .section-tag::before { content: ''; display: block; width: 24px; height: 3px; background: var(--yellow); border-radius: 2px; }
+    .section-title { font-family: 'Boogaloo', cursive; font-size: clamp(2rem,3.5vw,3rem); color: var(--navy); line-height: 1.15; margin-bottom: 1rem; }
+    .section-sub { font-size: 1.05rem; color: var(--text-mid); line-height: 1.7; max-width: 560px; font-weight: 600; }
+
+    /* ── WHY US ── */
+    .why-section { position: relative; overflow: hidden; }
+    .why-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3rem; position: relative; z-index: 1; }
+    .why-card { background: var(--white); border-radius: var(--radius); padding: 2rem; box-shadow: var(--shadow); border-top: 5px solid var(--yellow); transition: transform 0.25s, box-shadow 0.25s; }
+    .why-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .why-icon { width: 60px; height: 60px; background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 1.25rem; box-shadow: 0 6px 20px rgba(13,27,75,0.2); }
+    .why-card h3 { font-family: 'Boogaloo', cursive; font-size: 1.45rem; color: var(--navy); margin-bottom: 0.6rem; }
+    .why-card p { font-size: 0.95rem; color: var(--text-mid); line-height: 1.65; }
+
+    /* ── COMMERCIAL VIDEO ── */
+    .video-section { background: var(--navy); position: relative; overflow: hidden; }
+    .video-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 100%, rgba(255,214,0,.08) 0%, transparent 60%); }
+    .commercial-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+      border: 2px solid rgba(255,214,0,0.2);
+      aspect-ratio: 16/9;
+      background: #060d2a;
+      position: relative;
+    }
+    .commercial-wrapper iframe,
+    .commercial-wrapper video { width: 100%; height: 100%; border: none; display: block; }
+    .commercial-placeholder {
+      width: 100%; height: 100%; min-height: 320px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.25rem;
+      background: linear-gradient(145deg, #060d2a 0%, #0d1b4b 50%, #162263 100%);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .commercial-placeholder:hover { background: linear-gradient(145deg, #0d1b4b 0%, #162263 50%, #1e2f85 100%); }
+    .commercial-play-ring {
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      border: 3px solid rgba(255,214,0,0.35);
+      display: flex; align-items: center; justify-content: center;
+      animation: ring-pulse 2.5s ease-in-out infinite;
+    }
+    .commercial-play-btn {
+      width: 72px; height: 72px;
+      background: var(--yellow);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 32px rgba(255,214,0,0.5);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .commercial-placeholder:hover .commercial-play-btn { transform: scale(1.1); box-shadow: 0 14px 44px rgba(255,214,0,0.65); }
+    .commercial-label { font-family: 'Boogaloo', cursive; font-size: 1.3rem; color: rgba(255,255,255,0.75); }
+    .commercial-dims { font-size: 0.78rem; font-weight: 700; color: rgba(255,255,255,0.3); letter-spacing: 0.5px; }
+    @keyframes ring-pulse { 0%,100%{transform:scale(1);opacity:1;} 50%{transform:scale(1.12);opacity:0.6;} }
+
+    /* ── PROMO BANNER ── */
+    .promo-section { background: var(--navy); position: relative; overflow: hidden; }
+    .promo-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 50%, rgba(255,214,0,0.1) 0%, transparent 60%); }
+    .promo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; position: relative; z-index: 1; }
+    .promo-text .section-tag { color: rgba(255,214,0,0.7); }
+    .promo-text .section-tag::before { background: var(--yellow); }
+    .promo-text .section-title { color: var(--white); }
+    .promo-text .section-sub { color: rgba(255,255,255,0.7); }
+    .promo-cards { display: flex; flex-direction: column; gap: 1rem; }
+    .promo-card { background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.15); border-radius: var(--radius-sm); padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 1.25rem; transition: background 0.2s; }
+    .promo-card:hover { background: rgba(255,255,255,0.13); }
+    .promo-card-icon { font-size: 2rem; flex-shrink: 0; }
+    .promo-card h4 { font-family: 'Boogaloo', cursive; font-size: 1.2rem; color: var(--yellow); margin-bottom: 3px; }
+    .promo-card p { font-size: 0.88rem; color: rgba(255,255,255,0.65); }
+
+    /* ── HOURS ── */
+    .hours-section { background: var(--white); position: relative; overflow: hidden; }
+    .hours-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; margin-top: 2rem; position: relative; z-index: 1; }
+    .hours-table { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); border: 2px solid #e8eaff; }
+    .hours-row { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; border-bottom: 1px solid #f0f2ff; font-weight: 700; }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row:nth-child(even) { background: var(--offwhite); }
+    .hours-row .day { color: var(--text-dark); font-size: 0.95rem; }
+    .hours-row .time { color: var(--navy-light); font-size: 0.95rem; }
+    .hours-row.highlight { background: var(--navy); }
+    .hours-row.highlight .day, .hours-row.highlight .time { color: var(--yellow); }
+    .hours-row.header { background: var(--navy); font-family: 'Boogaloo', cursive; font-size: 1.1rem; letter-spacing: 0.5px; }
+    .hours-row.header .day, .hours-row.header .time { color: var(--white); }
+    .open-badge { display: inline-flex; align-items: center; gap: 8px; background: #e8faf0; color: #1a7a4a; border-radius: 100px; padding: 6px 16px; font-size: 0.85rem; font-weight: 800; margin-top: 1rem; border: 1.5px solid #b0eace; }
+    .open-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: #1a7a4a; animation: pulse 1.5s ease infinite; }
+    .hours-map { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); border-radius: var(--radius); padding: 2.5rem; color: white; box-shadow: var(--shadow-lg); }
+    .hours-map h3 { font-family: 'Boogaloo', cursive; font-size: 1.8rem; margin-bottom: 1.5rem; color: var(--yellow); }
+    .info-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem; }
+    .info-item-icon { width: 40px; height: 40px; background: rgba(255,214,0,0.15); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .info-item-text .label { font-size: 0.78rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 2px; }
+    .info-item-text .val { font-size: 1rem; font-weight: 700; color: white; }
+
+    /* ── CTA ── */
+    .cta-section { background: linear-gradient(135deg, var(--yellow) 0%, var(--yellow-dark) 100%); text-align: center; padding: 5rem 2rem; position: relative; overflow: hidden; }
+    .cta-section::before { content: '⛽'; position: absolute; font-size: 18rem; opacity: 0.06; right: -3rem; top: -3rem; line-height: 1; }
+    .cta-section .section-title { color: var(--navy); }
+    .cta-section p { color: var(--navy); opacity: 0.75; font-size: 1.1rem; font-weight: 600; margin: 1rem auto 2rem; max-width: 500px; }
+    .btn-navy { background: var(--navy); color: var(--yellow); padding: 16px 40px; border-radius: 100px; font-weight: 900; font-size: 1.05rem; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 8px 28px rgba(13,27,75,0.25); }
+    .btn-navy:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(13,27,75,0.35); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--navy); color: rgba(255,255,255,0.7); padding: 4rem 2rem 2rem; position: relative; overflow: hidden; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .footer-brand p { font-size: 0.9rem; line-height: 1.7; margin-top: 1rem; max-width: 260px; }
+    .footer-col h4 { font-family: 'Boogaloo', cursive; font-size: 1.1rem; color: var(--yellow); margin-bottom: 1.25rem; letter-spacing: 0.5px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.65rem; }
+    .footer-col ul li a { text-decoration: none; color: rgba(255,255,255,0.65); font-size: 0.9rem; font-weight: 600; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--yellow); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 2rem; font-size: 0.85rem; flex-wrap: wrap; gap: 1rem; }
+    .footer-bottom a { color: var(--yellow); text-decoration: none; font-weight: 700; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-content { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-visual { display: none; }
+      .why-grid { grid-template-columns: 1fr 1fr; }
+      .promo-grid { grid-template-columns: 1fr; }
+      .hours-layout { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .why-grid { grid-template-columns: 1fr; }
+      .hero-stat-row { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .hero-img-hint-box { height: 300px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">⛽</div>
+        <span class="nav-logo-text">Gas to <span>Go</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="whatsinstore.html">What's In Store</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="careers.html">Careers</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero" id="hero-section">
+    <div class="star-bg" id="hero-stars"></div>
+
+    <div class="hero-circle-1"></div>
+    <div class="hero-circle-2"></div>
+    <div class="hero-dots">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-tag">⚡ Now Open 24/7</div>
+        <h1 class="hero-title">
+          Your Favorite<br/>
+          <span class="accent">Stop on the Road!</span>
+        </h1>
+        <p class="hero-sub">
+          Fuel up fast, grab a snack, and hit the road with a smile. Gas to Go has everything you need — from top-quality fuel to fresh bites and friendly faces.
+        </p>
+        <div class="hero-btns">
+          <a href="whatsinstore.html" class="btn-primary">🛒 See What's Inside</a>
+          <a href="contact.html" class="btn-outline">Find Us</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="hero-pump-emoji">⛽</div>
+          <div class="hero-stat-row">
+            <div class="hero-stat"><div class="val">24/7</div><div class="lbl">Always Open</div></div>
+            <div class="hero-stat"><div class="val">4★</div><div class="lbl">Fuel Grades</div></div>
+            <div class="hero-stat"><div class="val">500+</div><div class="lbl">Snack Items</div></div>
+            <div class="hero-stat"><div class="val">10+</div><div class="lbl">Pump Stations</div></div>
+          </div>
+          <div class="hero-price-badge">
+            <span class="label">⛽ Regular Unleaded</span>
+            <span class="price">$3.29<small style="font-size:1rem">/gal</small></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MARQUEE ── -->
+  <div class="marquee-strip">
+    <div class="marquee-inner">
+      <span class="marquee-item">⛽ Top-Quality Fuel<span class="dot"></span></span>
+      <span class="marquee-item">🌮 Hot Food & Snacks<span class="dot"></span></span>
+      <span class="marquee-item">☕ Fresh Coffee Daily<span class="dot"></span></span>
+      <span class="marquee-item">🚿 Clean Restrooms<span class="dot"></span></span>
+      <span class="marquee-item">💳 All Cards Accepted<span class="dot"></span></span>
+      <span class="marquee-item">🎉 Loyalty Rewards<span class="dot"></span></span>
+      <span class="marquee-item">🛻 Diesel Available<span class="dot"></span></span>
+      <span class="marquee-item">❄️ Cold Drinks<span class="dot"></span></span>
+      <span class="marquee-item">⛽ Top-Quality Fuel<span class="dot"></span></span>
+      <span class="marquee-item">🌮 Hot Food & Snacks<span class="dot"></span></span>
+      <span class="marquee-item">☕ Fresh Coffee Daily<span class="dot"></span></span>
+      <span class="marquee-item">🚿 Clean Restrooms<span class="dot"></span></span>
+      <span class="marquee-item">💳 All Cards Accepted<span class="dot"></span></span>
+      <span class="marquee-item">🎉 Loyalty Rewards<span class="dot"></span></span>
+      <span class="marquee-item">🛻 Diesel Available<span class="dot"></span></span>
+      <span class="marquee-item">❄️ Cold Drinks<span class="dot"></span></span>
+    </div>
+  </div>
+
+  <!-- ── WHY CHOOSE US ── -->
+  <section class="why-section" id="why-section">
+    <div class="star-bg" id="why-stars"></div>
+    <div class="section-inner" style="position:relative;z-index:1;">
+      <div class="section-tag">Why We're Different</div>
+      <h2 class="section-title">More Than Just a Gas Station</h2>
+      <p class="section-sub">We're your community pit stop — built with love, stocked with care, and staffed by people who genuinely want to make your day better.</p>
+      <div class="why-grid">
+        <div class="why-card"><div class="why-icon">⚡</div><h3>Lightning-Fast Fueling</h3><p>With 12 pump stations and high-flow nozzles, you're back on the road in minutes. No waiting, no fuss.</p></div>
+        <div class="why-card"><div class="why-icon">🛒</div><h3>Stocked to the Brim</h3><p>Over 500 products from snacks and drinks to household essentials. If you need it, we probably have it!</p></div>
+        <div class="why-card"><div class="why-icon">☕</div><h3>Fresh Food & Coffee</h3><p>Grab a freshly brewed coffee, hot sandwich, or fountain drink any time of day. Prepared fresh every hour.</p></div>
+        <div class="why-card"><div class="why-icon">🏆</div><h3>Loyalty Rewards</h3><p>Every dollar you spend earns points. Redeem them for free fuel, snacks, or exclusive member discounts.</p></div>
+        <div class="why-card"><div class="why-icon">🌟</div><h3>Friendly Faces</h3><p>Our team is trained to be helpful, welcoming, and fast. We treat every customer like a regular — because they are!</p></div>
+        <div class="why-card"><div class="why-icon">🌿</div><h3>Clean & Comfortable</h3><p>Spotless restrooms, tidy pumps, and a bright, welcoming store. We take cleanliness seriously, every single day.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── COMMERCIAL VIDEO ── -->
+  <section class="video-section" id="video-section">
+    <div class="star-bg" id="video-stars"></div>
+    <div class="section-inner" style="position:relative;z-index:1;">
+      <div style="text-align:center;margin-bottom:2.5rem;">
+        <div class="section-tag" style="justify-content:center;">🎬 See It for Yourself</div>
+        <h2 class="section-title" style="color:var(--white);">Watch Our Commercial</h2>
+        <p style="color:rgba(255,255,255,.65);font-size:1rem;font-weight:600;max-width:520px;margin:0 auto;">See what makes Gas to Go the best stop in, we are actually everywhere — fuel, food, and friendly faces all under one roof.</p>
+      </div>
+      <div class="commercial-wrapper">
+        <!--
+          ═══════════════════════════════════════════════════
+          COMMERCIAL VIDEO — swap in your file or embed below
+
+          Self-hosted:
+          <video controls poster="your-thumbnail.jpg">
+            <source src="your-commercial.mp4" type="video/mp4">
+          </video>
+
+          YouTube embed:
+          <iframe
+            src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+            title="Gas to Go Commercial"
+            allow="accelerometer; autoplay; clipboard-write;
+                   encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+          ═══════════════════════════════════════════════════
+        -->
+        <div class="commercial-placeholder">
+           <video width="560" height="315" controls>
+  <source src="Sequence #1(2).mp4" type="video/mp4">
+  <source src="Sequence__1_2__4d089944.webm" type="video/webm">
+Your browser does not support the video tag.
+</video>
+              <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                <polygon points="11,6 30,18 11,30" fill="#0d1b4b"/>
+              </svg>
+            </div>
+        </div>
+      </div>
+  </section>
+
+  <!-- ── PROMO BANNER ── -->
+  <section class="promo-section" id="promo-section">
+    <div class="star-bg" id="promo-stars"></div>
+    <div class="section-inner promo-grid">
+      <div class="promo-text">
+        <div class="section-tag">Today's Deals</div>
+        <h2 class="section-title">Hot Deals You<br/>Don't Want to Miss 🔥</h2>
+        <p class="section-sub" style="margin-bottom:2rem;">Every day we have something special. Check in-store or follow us on social for the latest promotions!</p>
+        <a href="whatsinstore.html" class="btn-primary">See All Products →</a>
+      </div>
+      <div class="promo-cards">
+        <div class="promo-card"><div class="promo-card-icon">☕</div><div><h4>Coffee + Snack Combo</h4><p>Any size coffee with a pastry — only $3.99 before 11 AM!</p></div></div>
+        <div class="promo-card"><div class="promo-card-icon">⛽</div><div><h4>5¢ Off Per Gallon</h4><p>Sign up for our rewards app and save instantly at the pump.</p></div></div>
+        <div class="promo-card"><div class="promo-card-icon">🧃</div><div><h4>2-for-1 Drinks</h4><p>Select fountain drinks and bottled beverages — Tuesdays only.</p></div></div>
+        <div class="promo-card"><div class="promo-card-icon">🍕</div><div><h4>Hot Food Happy Hour</h4><p>20% off all hot food items from 3–5 PM every weekday.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── HOURS & INFO ── -->
+  <section class="hours-section" id="hours-section">
+    <div class="star-bg" id="hours-stars"></div>
+    <div class="section-inner">
+      <div class="section-tag">Find Us</div>
+      <h2 class="section-title">Hours & Location</h2>
+      <div class="hours-layout">
+        <div>
+          <div class="open-badge"><span class="dot"></span> Open Right Now</div>
+          <br/>
+          <div class="hours-table">
+            <div class="hours-row header"><span class="day">Day</span><span class="time">Hours</span></div>
+            <div class="hours-row highlight"><span class="day">Monday – Friday</span><span class="time">Open 24 Hours</span></div>
+            <div class="hours-row"><span class="day">Saturday</span><span class="time">Open 24 Hours</span></div>
+            <div class="hours-row"><span class="day">Sunday</span><span class="time">Open 24 Hours</span></div>
+            <div class="hours-row"><span class="day">Fuel Pumps</span><span class="time">Always Available</span></div>
+            <div class="hours-row"><span class="day">Car Wash</span><span class="time">You get the idea...</span></div>
+          </div>
+        </div>
+        <div class="hours-map">
+          <h3>🗺️ Come Visit Us!</h3>
+          <div class="info-item"><div class="info-item-icon">📍</div><div class="info-item-text"><div class="label">Address</div><div class="val">1234 Main Street, Somewhere</div></div></div>
+          <div class="info-item"><div class="info-item-icon">📞</div><div class="info-item-text"><div class="label">Phone</div><div class="val">(530) 555-0192</div></div></div>
+          <div class="info-item"><div class="info-item-icon">✉️</div><div class="info-item-text"><div class="label">Email</div><div class="val">hello@gastogo.com</div></div></div>
+          <div class="info-item"><div class="info-item-icon">⛽</div><div class="info-item-text"><div class="label">Fuels Available</div><div class="val">Regular · Plus · Premium · Diesel</div></div></div>
+          <div style="margin-top:1.5rem;"><a href="contact.html" class="btn-primary" style="display:inline-flex;">Get Directions →</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section class="cta-section" id="cta-section">
+    <div class="star-bg" id="cta-stars"></div>
+    <div class="section-inner" style="position:relative;z-index:1;">
+      <h2 class="section-title" style="font-size:clamp(2.2rem,4vw,3.2rem);">Ready to Fill Up?<br/>We'll See You Soon! 👋</h2>
+      <p>Stop by any time — we're always open, always stocked, and always happy to see you.</p>
+      <a href="contact.html" class="btn-navy">📍 Find Our Location</a>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer id="footer-section">
+    <div class="star-bg" id="footer-stars"></div>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo" style="margin-bottom:1rem;display:inline-flex;">
+            <div class="nav-logo-icon">⛽</div>
+            <span class="nav-logo-text">Gas to <span>Go</span></span>
+          </a>
+          <p>Your favorite neighborhood gas station. Fueling your journey since 2024, one gallon at a time.</p>
+        </div>
+        <div class="footer-col"><h4>Pages</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="whatsinstore.html">What's In Store</a></li><li><a href="contact.html">Contact</a></li><li><a href="careers.html">Careers</a></li></ul></div>
+        <div class="footer-col"><h4>Services</h4><ul><li><a href="#">Fuel Pumps</a></li><li><a href="#">Car Wash</a></li><li><a href="#">ATM</a></li><li><a href="#">Loyalty Rewards</a></li><li><a href="#">Hot Food</a></li></ul></div>
+        <div class="footer-col"><h4>Contact</h4><ul><li><a href="#">1234 Main St, Somewhere</a></li><li><a href="#">(530) 555-0192</a></li><li><a href="#">hello@gastogo.com</a></li><li><a href="#">Open 24/7</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Gas to Go. All rights reserved.</span>
+        <span><a href="#">Privacy Policy</a> · <a href="#">Terms</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    var starConfigs = {
+      'hero-stars': [
+        [8,12,28,'#FFD600','#e6a800',0.55,'t2 float'],[18,72,16,'#FFE566','#FFD600',0.4,'t3'],
+        [88,18,22,'#FFD600','#e6a800',0.5,'t5'],[78,65,14,'#fff','#FFD600',0.35,'t4'],
+        [55,88,18,'#FFD600','#e6a800',0.4,'t6'],[35,10,12,'#FFE566','#FFD600',0.3,'t3'],
+        [92,52,20,'#FFD600','#e6a800',0.45,'t2'],[4,48,10,'#FFE566','#FFD600',0.3,'t5'],
+        [65,15,14,'#fff','#FFD600',0.3,'t6'],[50,50,18,'#FFD600','#e6a800',0.25,'t4'],
+        [25,30,12,'#FFE566','#FFD600',0.3,'t6'],[72,40,16,'#FFD600','#e6a800',0.35,'t3'],
+      ],
+      'video-stars': [
+        [4,15,26,'#FFD600','#e6a800',0.2,'t2 float'],[95,12,18,'#FFD600','#e6a800',0.18,'t5'],
+        [2,60,14,'#FFE566','#FFD600',0.15,'t4'],[96,55,20,'#FFD600','#e6a800',0.17,'t3'],
+        [50,3,12,'#FFD600','#e6a800',0.12,'t6'],[50,97,10,'#FFE566','#FFD600',0.1,'t5'],
+        [20,88,16,'#FFD600','#e6a800',0.14,'t2'],[78,85,14,'#FFE566','#FFD600',0.13,'t4'],
+      ],
+      'why-stars': [
+        [1,5,18,'#FFD600','#e6a800',0.12,'t3 float'],[98,5,14,'#FFD600','#e6a800',0.1,'t5'],
+        [1,50,12,'#1e2f85','#0d1b4b',0.09,'t4'],[98,50,16,'#FFD600','#e6a800',0.1,'t2'],
+        [1,95,14,'#FFD600','#e6a800',0.1,'t6'],[98,95,12,'#1e2f85','#0d1b4b',0.08,'t3'],
+        [50,3,10,'#FFD600','#e6a800',0.08,'t5'],[50,97,12,'#1e2f85','#0d1b4b',0.07,'t2'],
+      ],
+      'promo-stars': [
+        [4,15,26,'#FFD600','#e6a800',0.2,'t2 float'],[95,12,18,'#FFD600','#e6a800',0.18,'t5'],
+        [2,60,14,'#FFE566','#FFD600',0.15,'t4'],[96,55,20,'#FFD600','#e6a800',0.17,'t3'],
+        [50,3,12,'#FFD600','#e6a800',0.12,'t6'],[50,97,10,'#FFE566','#FFD600',0.1,'t5'],
+        [20,88,16,'#FFD600','#e6a800',0.14,'t2'],[78,85,14,'#FFE566','#FFD600',0.13,'t4'],
+      ],
+      'hours-stars': [
+        [1,5,18,'#FFD600','#e6a800',0.1,'t3 float'],[98,5,14,'#FFD600','#e6a800',0.09,'t5'],
+        [1,50,12,'#1e2f85','#0d1b4b',0.08,'t4'],[98,50,16,'#FFD600','#e6a800',0.09,'t2'],
+        [1,95,14,'#FFD600','#e6a800',0.09,'t6'],[98,95,12,'#1e2f85','#0d1b4b',0.07,'t3'],
+      ],
+      'cta-stars': [
+        [5,20,24,'#0d1b4b','#162263',0.2,'t2 float'],[92,15,18,'#0d1b4b','#162263',0.17,'t5'],
+        [8,80,16,'#0d1b4b','#162263',0.15,'t4'],[90,75,14,'#0d1b4b','#162263',0.14,'t3'],
+        [50,10,10,'#0d1b4b','#162263',0.1,'t6'],[50,90,12,'#0d1b4b','#162263',0.11,'t2'],
+      ],
+      'footer-stars': [
+        [5,15,22,'#FFD600','#e6a800',0.2,'t3 float'],[93,10,16,'#FFD600','#e6a800',0.18,'t5'],
+        [3,65,14,'#FFE566','#FFD600',0.14,'t4'],[95,60,18,'#FFD600','#e6a800',0.16,'t2'],
+        [50,5,10,'#FFD600','#e6a800',0.1,'t6'],[20,85,16,'#FFE566','#FFD600',0.13,'t3'],
+      ]
+    };
+
+    function buildStarSVG(size, fill, stroke) {
+      var s = size, r = s / 2, pts = [];
+      for (var i = 0; i < 10; i++) {
+        var angle = (Math.PI / 5) * i - Math.PI / 2;
+        var rad = (i % 2 === 0) ? r * 0.95 : r * 0.42;
+        pts.push((r + rad * Math.cos(angle)).toFixed(2) + ',' + (r + rad * Math.sin(angle)).toFixed(2));
+      }
+      return '<svg xmlns="http://www.w3.org/2000/svg" width="' + s + '" height="' + s + '" viewBox="0 0 ' + s + ' ' + s + '"><polygon points="' + pts.join(' ') + '" fill="' + fill + '" stroke="' + stroke + '" stroke-width="2" stroke-linejoin="round"/><circle cx="' + r + '" cy="' + (r * 0.66).toFixed(1) + '" r="' + (r * 0.15).toFixed(1) + '" fill="white" opacity="0.55"/></svg>';
+    }
+
+    window.addEventListener('DOMContentLoaded', function () {
+      Object.keys(starConfigs).forEach(function (id) {
+        var c = document.getElementById(id);
+        if (!c) return;
+        var p = c.parentElement, w = p.offsetWidth || 1200, h = p.offsetHeight || 400;
+        starConfigs[id].forEach(function (cfg) {
+          var div = document.createElement('div');
+          div.className = 'star-svg ' + cfg[6];
+          div.style.cssText = 'position:absolute;left:' + (Math.round(cfg[0] / 100 * w) - cfg[2] / 2) + 'px;top:' + (Math.round(cfg[1] / 100 * h) - cfg[2] / 2) + 'px;opacity:' + cfg[5] + ';pointer-events:none;';
+          div.innerHTML = buildStarSVG(cfg[2], cfg[3], cfg[4]);
+          c.appendChild(div);
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
